@@ -1,8 +1,7 @@
-## Setup
-python -m venv venvtest
-source venvtest/bin/activate  # Linux/macOS
-venvtest\Scripts\activate     # Windows
-pip install -r requirements.txt
-pip freeze > requirements.txt
-#run
- python test.py
+##Add .env file
+## requirements.txt
+## python -m venv venvlang -- for create python venv 
+## venvlang\Scripts\activate -- Activate venv 
+## pip freeze > requirements.txt
+## pip install requirements.txt
+## ctr+shift+r --> for refresh 
