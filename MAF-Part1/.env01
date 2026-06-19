@@ -1,4 +1,4 @@
 AZURE_AI_PROJECT_ENDPOINT=https://agent-maf.services.ai.azure.com/api/projects/proj-mf-agent
 AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-5.4
-AZURE_AI_API_KEY=
-AUTH_MODE=apikey 
+AZURE_AI_API_KEY=sk
+AZURE_AI_AUTH_MODE=apikey 
