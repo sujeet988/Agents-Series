@@ -5,3 +5,6 @@
 ## pip freeze > requirements.txt
 ## pip install requirements.txt
 ## ctr+shift+r --> for refresh 
+
+#pip install -r requirements.txt
+##deactivate

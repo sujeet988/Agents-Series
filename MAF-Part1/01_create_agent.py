@@ -12,23 +12,37 @@ from azure.core.credentials import AzureKeyCredential
 
 
 
-# Load environment variables from .env file
+# Load environment variables from .env file (default: .env)
+# Load environment variables
 load_dotenv('.env01')
+
 PROJECT_ENDPOINT = os.getenv("AZURE_AI_PROJECT_ENDPOINT")
 MODEL_DEPLOYMENT = os.getenv("AZURE_AI_MODEL_DEPLOYMENT_NAME")
 AUTH_MODE = os.getenv("AZURE_AI_AUTH_MODE")
 API_KEY = os.getenv("AZURE_AI_API_KEY")
+
 print(f"Project Endpoint: {PROJECT_ENDPOINT}")
 print(f"Model Deployment: {MODEL_DEPLOYMENT}")
 print(f"Authentication Mode: {AUTH_MODE}")
-print(f"API Key: {API_KEY}")
+if API_KEY:
+    masked = API_KEY[:4] + "..." + API_KEY[-4:]
+    print(f"API Key: {masked} (masked)")
+else:
+    print("API Key: not set")
 
 async def get_project_client():
-    if AUTH_MODE.lower() == "cli":
-        credential = AzureCliCredential()
-    else:
-        credential = AzureKeyCredential(API_KEY)
+    # Validate required settings
+    if not PROJECT_ENDPOINT:
+        raise ValueError("AZURE_AI_PROJECT_ENDPOINT is not set in the environment")
 
+    mode = (AUTH_MODE or "").lower()
+    if mode == "cli":
+        credential = AzureCliCredential()
+        return AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=credential)
+    # Default to key-based auth
+    if not API_KEY:
+        raise ValueError("AZURE_AI_API_KEY is not set for key-based authentication")
+    credential = AzureKeyCredential(API_KEY)
     return AIProjectClient(endpoint=PROJECT_ENDPOINT, credential=credential)
 
 
